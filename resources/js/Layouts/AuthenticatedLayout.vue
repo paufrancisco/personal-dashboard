@@ -1,7 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-
+import { HomeIcon, CommandLineIcon, ChartPieIcon } from '@heroicons/vue/24/outline'
 </script>
 
 <template>
@@ -12,10 +11,10 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 
             <!-- Logo -->
             <div class="flex items-center justify-center h-16 border-b border-gray-200 dark:border-gray-700">
-                <Link :href="route('dashboard')">
-                    <ApplicationLogo class="h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                <Link :href="route('dashboard')" class="flex items-center gap-2 font-bold text-xl text-indigo-600 dark:text-indigo-400">
+                    <ChartPieIcon class="w-7 h-7" />
+                    Personal Dashboard
                 </Link>
-                <span class="ml-3 font-bold text-gray-800 dark:text-gray-200 text-lg">My Dashboard</span>
             </div>
 
             <!-- Nav Links -->
@@ -26,7 +25,8 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
                     class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
                     :class="{ 'bg-indigo-50 text-indigo-600 font-semibold dark:bg-gray-700': route().current('dashboard') }"
                 >
-                    🏠 Home
+                    <HomeIcon class="w-5 h-5" />
+                    Home
                 </Link>
 
                 <Link
@@ -34,7 +34,8 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
                     class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
                     :class="{ 'bg-indigo-50 text-indigo-600 font-semibold dark:bg-gray-700': route().current('shortcuts.page') }"
                 >
-                    ⌨️ Command Shortcuts
+                    <CommandLineIcon class="w-5 h-5" />
+                    Command Shortcuts
                 </Link>
 
             </nav>

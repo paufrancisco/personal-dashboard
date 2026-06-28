@@ -19,4 +19,19 @@ class ShortcutsRepository
 
         return $shortcut;
     }
+
+    public function delete(int $id)
+    {
+        $shortcut = Shortcuts::find($id);
+        $shortcut->delete();
+    }
+
+    public function update(int $id, array $data)
+    {
+        $shortcut = Shortcuts::find($id);
+        $shortcut->update($data);
+        return $shortcut;
+    }
+
+
 }

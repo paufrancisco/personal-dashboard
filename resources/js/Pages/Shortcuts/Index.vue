@@ -35,8 +35,12 @@
                             <td class="px-6 py-4">{{ shortcut.category }}</td>
                             <td class="px-6 py-4">{{ shortcut.command }}</td>
                             <td class="px-6 py-4">
-                                <button class="text-indigo-600 hover:text-indigo-800 mr-3">Edit</button>
-                                <button class="text-red-500 hover:text-red-700">Delete</button>
+                                <button @click="openEdit(shortcut)" class="text-indigo-600 hover:text-indigo-800 mr-3">
+                                    <PencilSquareIcon class="w-5 h-5" />
+                                </button>
+                                <button @click="store.removeShortcut(shortcut.id)" class="text-red-500 hover:text-red-700">
+                                    <TrashIcon class="w-5 h-5" />
+                                </button>
                             </td>
                         </tr>
                     </tbody>
@@ -47,7 +51,9 @@
             <div v-if="showModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                 <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
                     <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-lg font-semibold text-gray-800">Add Shortcut</h2>
+                        <h2 class="text-lg font-semibold text-gray-800">
+                            {{ editMode ? 'Edit Shortcut' : 'Add Shortcut' }}
+                        </h2>
                         <button @click="showModal = false" class="text-gray-400 hover:text-gray-600">✕</button>
                     </div>
                     <div class="space-y-4">
@@ -87,9 +93,12 @@
 import { ref, onMounted } from 'vue'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { useShortcutState } from '@/stores/useShortcutState'
+import { PencilSquareIcon, TrashIcon } from '@heroicons/vue/24/outline'
 
 const store = useShortcutState()
 const showModal = ref(false)
+const editMode = ref(false)
+const selectedId = ref(null)
 
 const form = ref({
     title: '',
@@ -97,9 +106,26 @@ const form = ref({
     command: ''
 })
 
+function openEdit(shortcut) {
+    editMode.value = true
+    selectedId.value = shortcut.id
+    form.value = {
+        title: shortcut.title,
+        category: shortcut.category,
+        command: shortcut.command
+    }
+    showModal.value = true
+}
+
 async function saveShortcut() {
-    await store.addShortcut(form.value)
+    if (editMode.value) {
+        await store.editShortcut(selectedId.value, form.value)
+    } else {
+        await store.addShortcut(form.value)
+    }
     showModal.value = false
+    editMode.value = false
+    selectedId.value = null
     form.value = { title: '', category: '', command: '' }
 }
 

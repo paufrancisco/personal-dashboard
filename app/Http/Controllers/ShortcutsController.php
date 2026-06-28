@@ -46,7 +46,9 @@ class ShortcutsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $shortcut = $this->repository->update($id, $request->all());
+        return response()->json($shortcut);
+
     }
 
     /**
@@ -54,6 +56,9 @@ class ShortcutsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $deleted = $this->repository->delete($id);
+        return response()->json(['message' => 'Deleted successfully']);
     }
+
+
 }

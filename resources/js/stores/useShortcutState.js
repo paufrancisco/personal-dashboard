@@ -16,9 +16,21 @@ export const useShortcutState = defineStore('shortcuts', () => {
         await fetchShortcuts()
     }
 
+    async function removeShortcut(id) {
+        await axios.delete(`/api/v1/shortcuts/${id}`)
+        await fetchShortcuts()
+    }
+
+    async function editShortcut(id, form) {
+        await axios.put(`/api/v1/shortcuts/${id}`, form)
+        await fetchShortcuts()
+    }
+ 
     return {
         shortcuts,
         fetchShortcuts,
+        removeShortcut,
+        editShortcut,
         addShortcut
     }
 })
