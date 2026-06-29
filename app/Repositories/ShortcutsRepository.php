@@ -6,6 +6,14 @@ use App\Models\Shortcuts;
 
 class ShortcutsRepository
 {
+    
+    public function create(array $data)
+    {
+        $shortcut = Shortcuts::create($data);
+
+        return $shortcut;
+    }
+
     public function getAll()
     {
         $shortcuts = Shortcuts::all();
@@ -13,10 +21,11 @@ class ShortcutsRepository
         return $shortcuts;
     }
 
-    public function create(array $data)
+    public function update(int $id, array $data)
     {
-        $shortcut = Shortcuts::create($data);
-
+        $shortcut = Shortcuts::find($id);
+        $shortcut->update($data);
+        
         return $shortcut;
     }
 
@@ -25,13 +34,4 @@ class ShortcutsRepository
         $shortcut = Shortcuts::find($id);
         $shortcut->delete();
     }
-
-    public function update(int $id, array $data)
-    {
-        $shortcut = Shortcuts::find($id);
-        $shortcut->update($data);
-        return $shortcut;
-    }
-
-
 }

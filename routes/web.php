@@ -23,4 +23,9 @@ Route::get('/shortcuts', function () {
     return Inertia::render('Shortcuts/Index');
 })->middleware(['auth', 'verified'])->name('shortcuts.page');
 
+Route::get('/notes', function () {
+    return Inertia::render('Notes/Index');
+})->middleware(['auth', 'verified'])->name('notes.page');
+
+
 require __DIR__.'/auth.php';

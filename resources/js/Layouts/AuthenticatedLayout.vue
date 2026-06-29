@@ -1,6 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import { HomeIcon, CommandLineIcon, ChartPieIcon } from '@heroicons/vue/24/outline'
+import { HomeIcon, CommandLineIcon, ChartPieIcon, DocumentTextIcon  } from '@heroicons/vue/24/outline'
 </script>
 
 <template>
@@ -36,6 +36,15 @@ import { HomeIcon, CommandLineIcon, ChartPieIcon } from '@heroicons/vue/24/outli
                 >
                     <CommandLineIcon class="w-5 h-5" />
                     Command Shortcuts
+                </Link>
+
+                <Link
+                    :href="route('notes.page')"
+                    class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                    :class="{ 'bg-indigo-50 text-indigo-600 font-semibold dark:bg-gray-700': route().current('notes.page') }"
+                >
+                    <DocumentTextIcon  class="w-5 h-5" />
+                    Notes
                 </Link>
 
             </nav>
